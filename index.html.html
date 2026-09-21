@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Ti 💛</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #fffdf0;
+      --primary-yellow: #fcd34d;
+      --accent-gold: #f59e0b;
+      --soft-pink: #fef2f2;
+      --text-dark: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 24px 18px;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(252, 211, 77, 0.4);
+      text-align: center;
+    }
+
+    /* Pantalla Inicial */
+    .screen {
+      display: none;
+      animation: fadeIn 0.6s ease-in-out forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.3rem;
+      color: #b45309;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      font-size: 0.9rem;
+      color: #78350f;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Ramo de Tulipanes */
+    .tulip-bouquet {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 280px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .tulip-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      width: 30%;
+      position: relative;
+    }
+
+    .tulip-flower {
+      width: 60px;
+      height: 70px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .tulip-item:hover .tulip-flower {
+      transform: scale(1.08);
+    }
+
+    /* Pétalos de Tulipán */
+    .petal {
+      position: absolute;
+      background: linear-gradient(135deg, #fef08a 0%, #facc15 100%);
+      border: 1px solid #eab308;
+      border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .petal-center {
+      width: 32px;
+      height: 55px;
+      left: 14px;
+      top: 10px;
+      z-index: 2;
+      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 100%);
+    }
+
+    .petal-left {
+      width: 28px;
+      height: 50px;
+      left: 4px;
+      top: 15px;
+      transform-origin: bottom right;
+      z-index: 1;
+    }
+
+    .petal-right {
+      width: 28px;
+      height: 50px;
+      right: 4px;
+      top: 15px;
+      transform-origin: bottom left;
+      z-index: 1;
+    }
+
+    /* Animación al abrir */
+    .tulip-item.open .petal-left {
+      transform: rotate(-35deg) translateX(-6px);
+    }
+
+    .tulip-item.open .petal-right {
+      transform: rotate(35deg) translateX(6px);
+    }
+
+    .tulip-item.open .petal-center {
+      transform: scaleY(0.9);
+      background: #fef08a;
+    }
+
+    .stem {
+      width: 6px;
+      height: 180px;
+      background: #65a30d;
+      border-radius: 3px;
+      margin-top: -5px;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 20px;
+      height: 60px;
+      background: #4d7c0f;
+      border-radius: 100% 0 100% 0;
+      bottom: 20px;
+    }
+
+    .leaf-left {
+      left: 5px;
+      transform: rotate(-20deg);
+    }
+
+    .leaf-right {
+      right: 5px;
+      transform: rotate(60deg) scaleX(-1);
+    }
+
+    /* Cuadro de texto desplegable */
+    .compliment-box {
+      min-height: 70px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px dashed #fcd34d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      color: #78350f;
+      transition: all 0.3s ease;
+    }
+
+    /* Carta */
+    .letter-card {
+      background: #ffffff;
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid #fef3c7;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #334155;
+      margin: 15px 0 20px 0;
+    }
+
+    .signature {
+      margin-top: 15px;
+      text-align: right;
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #b45309;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div id="screen-intro" class="screen active">
+      <div style="font-size: 4rem; margin-bottom: 10px;">🌻</div>
+      <h1>Feliz Día de las Flores Amarillas</h1>
+      <p class="subtitle">Tengo una sorpresa especial hecha para ti</p>
+      <button class="btn" onclick="goToScreen('screen-tulips')">Abrir tu sorpresa 💛</button>
+    </div>
+
+    <div id="screen-tulips" class="screen">
+      <h1>Toca cada tulipán ✨</h1>
+      <p class="subtitle">Descubre lo que tanto me gusta de ti</p>
+
+      <div class="tulip-bouquet">
+        <div class="tulip-item" onclick="openTulip(this, 'Tus ojos ✨<br>Esa mirada tan linda que me atrapa cada vez.')">
+          <div class="tulip-flower">
+            <div class="petal petal-left"></div>
+            <div class="petal petal-center"></div>
+            <div class="petal petal-right"></div>
+          </div>
+          <div class="stem"></div>
+          <div class="leaf leaf-left"></div>
+        </div>
+
+        <div class="tulip-item" onclick="openTulip(this, 'Tu boca 💋<br>Simplemente perfecta.')">
+          <div class="tulip-flower">
+            <div class="petal petal-left"></div>
+            <div class="petal petal-center"></div>
+            <div class="petal petal-right"></div>
+          </div>
+          <div class="stem"></div>
+        </div>
+
+        <div class="tulip-item" onclick="openTulip(this, 'Y lo más importante... <br><b>Tu boca con tu sonrisa 💛</b><br>Esa sonrisa que me ilumina el día por completo.')">
+          <div class="tulip-flower">
+            <div class="petal petal-left"></div>
+            <div class="petal petal-center"></div>
+            <div class="petal petal-right"></div>
+          </div>
+          <div class="stem"></div>
+          <div class="leaf leaf-right"></div>
+        </div>
+      </div>
+
+      <div id="compliment" class="compliment-box">
+        Selecciona un tulipán para abrir sus pétalos 💛
+      </div>
+
+      <button id="btn-to-letter" class="btn" style="margin-top: 15px; display: none;" onclick="goToScreen('screen-letter')">Leer mi carta 💌</button>
+    </div>
+
+    <div id="screen-letter" class="screen">
+      <h1>Una carta para ti 💌</h1>
+      <div class="letter-card">
+        <p>Hoy en el día de las flores amarillas no quería dejar pasar la oportunidad de regalarte algo único, justo como lo eres tú para mí.</p>
+        <br>
+        <p>Cada pequeño detalle tuyo me encanta, pero la manera en que sonríes y me miras es mi parte favorita del día. Espero que estos tulipanes te recuerden siempre lo especial que eres.</p>
+        <div class="signature">Con mucho amor,<br>Samu 💛</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let openedCount = 0;
+
+    function goToScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function openTulip(element, text) {
+      if (!element.classList.contains('open')) {
+        element.classList.add('open');
+        openedCount++;
+      }
+      
+      const box = document.getElementById('compliment');
+      box.innerHTML = text;
+      box.style.background = "#fffbeb";
+
+      // Si abrió al menos los 3 tulipanes, muestra el botón hacia la carta
+      if (openedCount >= 3) {
+        document.getElementById('btn-to-letter').style.display = 'inline-block';
+      }
+    }
+  </script>
+</body>
+</html>
